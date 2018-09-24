@@ -157,7 +157,7 @@ public class ImageShareActivity extends AppCompatActivity implements View.OnClic
                 public void run() {
                     String data = args[0].toString();
                     Log.e(TAG, "mMessageReceiver: >>" + data);
-                    mTvInputMessage.setText("All Input Messages\n\n" + data.toString());
+//                    mTvInputMessage.setText("All Input Messages\n\n" + data.toString());
                 }
             });
         }
@@ -180,14 +180,12 @@ public class ImageShareActivity extends AppCompatActivity implements View.OnClic
     /*
     image capture as video
      */
-
     private class ImageAvailableListener implements ImageReader.OnImageAvailableListener {
         @Override
         public void onImageAvailable(ImageReader reader) {
             Image image = null;
             FileOutputStream fos = null;
             Bitmap bitmap = null;
-
             try {
                 image = reader.acquireLatestImage();
                 if (image != null) {
@@ -196,39 +194,33 @@ public class ImageShareActivity extends AppCompatActivity implements View.OnClic
                     int pixelStride = planes[0].getPixelStride();
                     int rowStride = planes[0].getRowStride();
                     int rowPadding = rowStride - pixelStride * mWidth;
-
                     // create bitmap
                     bitmap = Bitmap.createBitmap(mWidth + rowPadding / pixelStride, mHeight, Bitmap.Config.ARGB_8888);
                     bitmap.copyPixelsFromBuffer(buffer);
-
-
                     // write bitmap to array
-
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
                     //compress the image to jpg format
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 30, byteArrayOutputStream);
-
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
                     /*
                      * encode image to base64 so that it can be picked by saveImage.php file
                      * */
                     encodeImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
-
                     // write bitmap to a file
                     fos = new FileOutputStream(STORE_DIRECTORY + "/myscreen_" + IMAGES_PRODUCED + ".png");
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 30, fos);
-
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
 //                    sendToServer();
                     Log.e(TAG, "onImageAvailable: >>" + encodeImage);
-
-                    mIvImageMessage.setImageBitmap(bitmap);
-
-                    mSocket.emit("chat message", encodeImage);
-
+//                    mSocket.emit("chat message", encodeImage);
                     IMAGES_PRODUCED++;
                     Log.e(TAG, "captured image: " + IMAGES_PRODUCED);
-                }
 
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mSocket.emit("chat message",encodeImage);
+                        }
+                    });
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
