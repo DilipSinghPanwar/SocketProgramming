@@ -7,75 +7,84 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <EditText
+                android:id="@+id/etUniqueID"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="Enter ID"
+                android:inputType="number"
+                android:digits="0123456789"
+                android:focusedByDefault="false"
+                android:maxLines="1"/>
+
+            <EditText
+                android:id="@+id/etServerUrl"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:focusedByDefault="false"
+                android:hint="Enter Server URL" />
+
+            <TextView
+                android:id="@+id/tvBrowserUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_margin="16dp"
+                android:text="Browser Url" />
+
             <Button
                 android:id="@+id/btnConnect"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="4dp"
+                android:layout_marginTop="8dp"
                 android:text="Connect" />
 
             <Button
                 android:id="@+id/btnDisConnect"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="4dp"
+                android:layout_marginTop="4dp"
                 android:text="Disconnect" />
 
             <Button
                 android:id="@+id/btnCheckSocketStatus"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="4dp"
+                android:layout_marginTop="4dp"
                 android:text="Check Connection Status" />
-
-            <Button
-                android:id="@+id/btnTakeScreenShot"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:visibility="gone"
-                android:layout_margin="4dp"
-                android:text="Take ScreenShot" />
-
-            <Button
-                android:id="@+id/btnSendImage"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="4dp"
-                android:visibility="gone"
-                android:text="Send Image" />
-
-            <ImageView
-                android:id="@+id/ivImageMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/startButton"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="4dp"
+                android:layout_marginTop="4dp"
                 android:text="Start Capture" />
 
             <Button
                 android:id="@+id/stopButton"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="4dp"
+                android:layout_marginTop="4dp"
                 android:text="Stop Capture" />
 
             <TextView
                 android:id="@+id/tvInputMessage"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:text="Messages"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:text="Connection Status"
                 android:textColor="@android:color/black"
                 android:textIsSelectable="true"
                 android:textSize="18sp" />
